@@ -63,10 +63,14 @@ public class Calculator extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
+    } catch (ServletException | IOException e) {
+        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
+    } catch (ServletException | IOException e) {
+        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
