@@ -34,8 +34,6 @@ public class Calculator extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            // Bug: Catching exception but not handling it properly
-            throw new SQLException("JDBC Driver not found", e);
         }
 
         // Create and return the connection
@@ -110,5 +108,12 @@ public class Calculator extends HttpServlet {
         System.out.println("Addition: " + resultAdd);
         System.out.println("Subtraction: " + resultSub);
         System.out.println("Multiplication: " + resultMul);
+    }
+    
+    // Intentionally added a long method to trigger SonarQube analysis failure
+    private void thisMethodIsTooLongAndShouldFailSonarQubeAnalysis() {
+        for (int i = 0; i < 1000; i++) {
+            System.out.println("This is a long method.");
+        }
     }
 }
