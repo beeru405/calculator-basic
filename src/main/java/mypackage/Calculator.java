@@ -11,15 +11,15 @@ import javax.servlet.http.*;
 
 public class Calculator extends HttpServlet {
 
-    public long addFucn(long first, long second) {
+    public long addFunc(long first, long second) {
         return first + second;
     }
 
-    public long subFucn(long first, long second) {
+    public long subFunc(long first, long second) {
         return second - first;
     }
 
-    public long mulFucn(long first, long second) {
+    public long mulFunc(long first, long second) {
         return first * second;
     }
 
@@ -63,14 +63,10 @@ public class Calculator extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-    } catch (ServletException | IOException e) {
-        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-    } catch (ServletException | IOException e) {
-        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,25 +77,23 @@ public class Calculator extends HttpServlet {
             int a2 = Integer.parseInt(request.getParameter("n2"));
 
             if (request.getParameter("r1") != null) {
-                long result = addFucn(a1, a2);
+                long result = addFunc(a1, a2);
                 out.println("<h1>Addition</h1>" + result);
                 saveToDatabase("Addition", result);
             }
             if (request.getParameter("r2") != null) {
-                long result = subFucn(a1, a2);
+                long result = subFunc(a1, a2);
                 out.println("<h1>Subtraction</h1>" + result);
                 saveToDatabase("Subtraction", result);
             }
             if (request.getParameter("r3") != null) {
-                long result = mulFucn(a1, a2);
+                long result = mulFunc(a1, a2);
                 out.println("<h1>Multiplication</h1>" + result);
                 saveToDatabase("Multiplication", result);
             }
 
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.include(request, response);
-        } catch (ServletException | IOException e) {
-        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,9 +101,9 @@ public class Calculator extends HttpServlet {
 
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
-        long resultAdd = calculator.addFucn(5, 3);
-        long resultSub = calculator.subFucn(5, 3);
-        long resultMul = calculator.mulFucn(5, 3);
+        long resultAdd = calculator.addFunc(5, 3);
+        long resultSub = calculator.subFunc(5, 3);
+        long resultMul = calculator.mulFunc(5, 3);
 
         System.out.println("Addition: " + resultAdd);
         System.out.println("Subtraction: " + resultSub);
