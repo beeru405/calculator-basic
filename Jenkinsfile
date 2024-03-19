@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from Git repository
-                git branch: 'main', url: 'https://github.com/beeru405/webcalc-java.git'
+                git branch: 'main', url: 'https://github.com/beeru405/calculator-basic.git'
             }
         }
 
@@ -20,6 +20,17 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube') {
                     sh 'mvn sonar:sonar'
+                }
+            }
+        }
+
+        stage('Quality Gate Check') {
+            steps {
+                script {
+                    def qg = waitForQualityGate() // Wait for SonarQube analysis to complete
+                    if (qg.status != 'OK') {
+                        error "Pipeline failed due to Quality Gate status: ${qg.status}"
+                    }
                 }
             }
         }
@@ -54,13 +65,12 @@ pipeline {
     }
 
     post {
-        success {
-            // Notify success, send emails, or perform other post-build actions
-            echo 'Deployment successful!'
-        }
-        failure {
-            // Notify failure, send emails, or perform other post-build actions
-            echo 'Deployment failed!'
+        always {
+            // Fail the build if any previous stage failed
+            catchError {
+                // Fail the build explicitly if it hasn't been failed already due to previous errors
+                error 'Pipeline failed'
+            }
         }
     }
 }
