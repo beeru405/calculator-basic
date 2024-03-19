@@ -34,6 +34,8 @@ public class Calculator extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            // Bug: Catching exception but not handling it properly
+            throw new SQLException("JDBC Driver not found", e);
         }
 
         // Create and return the connection
