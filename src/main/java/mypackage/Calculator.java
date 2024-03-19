@@ -32,8 +32,6 @@ public class Calculator extends HttpServlet {
         // Register the JDBC driver (you might not need this if using JDBC 4.0+)
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ServletException | IOException e) {
-        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -96,6 +94,8 @@ public class Calculator extends HttpServlet {
 
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.include(request, response);
+        } catch (ServletException | IOException e) {
+        e.printStackTrace(); // Handle the exception appropriately, e.g., log it or take corrective action
         } catch (Exception e) {
             e.printStackTrace();
         }
